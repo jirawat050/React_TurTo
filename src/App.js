@@ -3,6 +3,7 @@
   import './App.css';
   import './index.css';
   import axios from 'axios';
+  import Cookies from 'js-cookie';
 
   class App extends Component {
     
@@ -32,16 +33,20 @@
           data: bodyFormData,
           })
           .then(result =>{
-            if (result.success == "1")
+            if (result.data.success == "1")
             {  
-                // setCookie('access_token',result.data.access_token,2);
-                // setCookie('refresh_token',result.data.refresh_token,2);
+                
+                result = result.data.data;
+                Cookies.set('access_token',result.access_token);
+                Cookies.set('refresh_token',result.refresh_token);
                 alert("Success");
-                console.log(result);
+               console.log(result);
                 
        
-                window.location.href = "http://localhost/paym/backoffice/api/v1/staff/Dashboard";
-            }else{
+               window.location.href = "http://localhost/paym/backoffice/api/v1/staff/dashboard";
+           
+            }
+            else{
               alert("incorrect");
             }
           
